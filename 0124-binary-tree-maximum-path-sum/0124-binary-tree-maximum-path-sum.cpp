@@ -10,17 +10,20 @@
  * };
  */
 class Solution {
+    private:
+     int maxdepth(TreeNode* node, int& maxi){
+        if(node==NULL) return 0;
+        int left= max(0,maxdepth(node->left,maxi));
+        int right= max(0,maxdepth(node->right,maxi));
+        maxi= max(maxi,node->val+left+right);
+        return max(left,right)+node->val;
+            
+    }
 public:
     int maxPathSum(TreeNode* root) {
-        int maxi=INT_MIN;
-         maxpath(root,maxi);
-         return maxi;
+        int maxi= INT_MIN;
+        maxdepth(root,maxi);
+        return maxi;
     }
-    int maxpath(TreeNode* root,int & maxi){
-        if(root==NULL) return 0;
-        int lh= max(0,maxpath(root->left,maxi));
-        int rh=max(0,maxpath(root->right,maxi));
-        maxi=max(maxi,root->val +lh+rh);
-        return max(lh,rh)+ root->val;
-    }
+   
 };
