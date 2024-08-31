@@ -10,8 +10,8 @@ public:
         char c2 = t[i];
 
         // Check if there's a conflicting mapping
-        if ((mapST.count(c1) && mapST[c1] != c2) || 
-            (mapTS.count(c2) && mapTS[c2] != c1)) {
+        if ((mapST.find(c1) != mapST.end() && mapST[c1] != c2) || 
+    (mapTS.find(c2) != mapTS.end() && mapTS[c2] != c1)) {
             return false;
         }
 
