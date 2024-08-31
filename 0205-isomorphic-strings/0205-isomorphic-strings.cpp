@@ -1,40 +1,25 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-      
-            
-            
-        if (s.length() != t.length()) {
-        return false;
-    }
+       if (s.length() != t.length()) return false;
 
-    // Create a hashmap to store character mappings
-   unordered_map<char, char> charMappingMap;
+    unordered_map<char, char> mapST, mapTS;
 
-    for (int i = 0; i < s.length(); i++) {
-        char original = s[i];
-        char replacement = t[i];
+    for (int i = 0; i < s.length(); ++i) {
+        char c1 = s[i];
+        char c2 = t[i];
 
-        if (charMappingMap.find(original) == charMappingMap.end()) {
-            if (
-                find_if(charMappingMap.begin(), charMappingMap.end(),
-                        [replacement](const pair<char, char>& pair) { 
-                            return pair.second == replacement; }) == charMappingMap.end()) {
-                charMappingMap[original] = replacement;
-            } 
-            else {
-                return false;
-            }
-        } else {
-            char mappedCharacter = charMappingMap[original];
-            if (mappedCharacter != replacement) {
-                return false;
-            }
+        // Check if there's a conflicting mapping
+        if ((mapST.count(c1) && mapST[c1] != c2) || 
+            (mapTS.count(c2) && mapTS[c2] != c1)) {
+            return false;
         }
+
+        // Create the mapping
+        mapST[c1] = c2;
+        mapTS[c2] = c1;
     }
 
-    return true;
-
-
+    return true;  
     }
 };
